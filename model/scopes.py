@@ -16,3 +16,8 @@ class Scope:
             raise TypeError(
                 f"Cannot instantiate abstract class {cls.__class__.__name__}."
             )
+
+
+@dataclass
+class BranchNameScope(Scope):
+    name_like: str
