@@ -1,0 +1,12 @@
+Config: {}
+
+GenericRules: {}
+
+ScopedRules:
+  - Scope:
+      BranchNameScope:
+        NameLike: '[number]-[text]'
+        Action: include
+    Rules:
+      - Type: CommitMessageSize
+        MaxSize: 100
