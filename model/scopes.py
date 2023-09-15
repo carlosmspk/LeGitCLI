@@ -2,22 +2,22 @@ from enum import Enum
 from dataclasses import dataclass
 
 
-class ScopeAction(Enum):
+class ScopeConditionAction(Enum):
     INCLUDE = "include"
     EXCLUDE = "exclude"
 
 
 @dataclass(frozen=True)
-class Scope:
-    action: ScopeAction
+class ScopeCondition:
+    action: ScopeConditionAction
 
     def __init_subclass__(cls) -> None:
-        if cls.__class__ == Scope:
+        if cls.__class__ == ScopeCondition:
             raise TypeError(
                 f"Cannot instantiate abstract class {cls.__class__.__name__}."
             )
 
 
 @dataclass(frozen=True)
-class BranchNameScope(Scope):
+class BranchNameScopeCondition(ScopeCondition):
     name_like: str
