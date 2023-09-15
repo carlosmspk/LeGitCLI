@@ -30,3 +30,7 @@ class CommitMessageSizeRule(Rule):
     def __init__(self, max_size: int) -> None:
         super().__init__(RuleType.COMMIT_MESSAGE_SIZE)
         self.max_size = max_size
+
+    @property
+    def max_size(self) -> int:
+        return self.max_size
