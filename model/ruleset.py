@@ -5,5 +5,5 @@ from model.scopes import ScopeCondition
 
 @dataclass(frozen=True)
 class ScopedRuleSet:
-    scope: ScopeCondition
+    scope: list[ScopeCondition]
     rules: list[Rule]
