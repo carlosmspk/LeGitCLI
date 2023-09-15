@@ -17,7 +17,11 @@ class Rule:
         return (
             self.__class__.__name__
             + "("
-            + ", ".join(f"{name}={value}" for name, value in self.__dict__.items())
+            + ", ".join(
+                f"{name}={value}"
+                for name, value in self.__dict__.items()
+                if not isinstance(value, RuleType)
+            )
             + ")"
         )
 
