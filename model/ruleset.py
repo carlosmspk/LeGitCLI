@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Iterable
 from model.rules import Rule
-from model.scopes import ScopeCondition
+from model.scopes_conditions import ScopeCondition
 
 
 @dataclass(frozen=True)
