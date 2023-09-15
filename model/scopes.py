@@ -1,5 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
+import abstract.guards as guards
 
 
 class ScopeConditionAction(Enum):
@@ -16,11 +17,8 @@ class ScopeCondition:
     action: ScopeConditionAction
     """Should the scope match, this dictates the action to be taken. (c.f. ScopeConditionAction enum for possible actions)"""
 
-    def __init_subclass__(cls) -> None:
-        if cls.__class__ == ScopeCondition:
-            raise TypeError(
-                f"Cannot instantiate abstract class {cls.__class__.__name__}."
-            )
+    def __post_init__(self) -> None:
+        guards.prevent_abstract_instantiation(self, ScopeCondition)
 
 
 @dataclass(frozen=True)

@@ -1,4 +1,5 @@
 from enum import Enum
+import abstract.guards as guards
 
 
 class RuleType(Enum):
@@ -7,10 +8,7 @@ class RuleType(Enum):
 
 class Rule:
     def __init__(self, type: RuleType) -> None:
-        if self.__class__ == Rule:
-            raise TypeError(
-                f"Cannot instantiate abstract class {self.__class__.__name__}."
-            )
+        guards.prevent_abstract_instantiation(self, Rule)
         self.type = type
 
     def __repr__(self) -> str:
