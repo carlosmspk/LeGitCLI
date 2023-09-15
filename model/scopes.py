@@ -7,7 +7,7 @@ class ScopeAction(Enum):
     EXCLUDE = "exclude"
 
 
-@dataclass
+@dataclass(frozen=True)
 class Scope:
     action: ScopeAction
 
@@ -18,6 +18,6 @@ class Scope:
             )
 
 
-@dataclass
+@dataclass(frozen=True)
 class BranchNameScope(Scope):
     name_like: str

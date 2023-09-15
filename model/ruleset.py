@@ -3,7 +3,7 @@ from model.rules import Rule
 from model.scopes import Scope
 
 
-@dataclass
+@dataclass(frozen=True)
 class ScopedRuleSet:
     scope: Scope
     rules: list[Rule]
