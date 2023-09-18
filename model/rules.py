@@ -15,11 +15,7 @@ class Rule:
         self.type = type
 
     def __repr__(self) -> str:
-        """This is to allow all rules to be printable in a human-readable manner for debugging
-
-        Never call this method explicitely, this is Python's way of converting an object to string, which gets automatically
-        called, for instance, when calling `print(my_rule)` (Note: this only happens if __str__ is not implemented, which it is not, in this case).
-        """
+        """Used to get human-readable output when converted to string (e.g. via `print()`)"""
         return (
             self.__class__.__name__
             + "("
