@@ -3,7 +3,7 @@ import abstract.guards as guards
 
 
 class RuleType(Enum):
-    """Collection of rule types used to uniquely identify each subclass of Rule. The Enum's value is what should show up in the rule YAML file"""
+    """Enum which identifies the rule's type. The Enum's value is what should show up in the rule YAML file"""
     COMMIT_MESSAGE_SIZE = "CommitMessageSize"
 
 
