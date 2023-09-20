@@ -6,7 +6,7 @@ from model.scope_conditions import ScopeCondition
 
 @dataclass(frozen=True)
 class ScopedRuleset:
-    """Set of rules to be applied to matching set of scope conditions, depending on the matched scope action."""
+    """Class with rules to be applied to matching multiple scope conditions, depending on the matched scope action."""
 
     scope: Iterable[ScopeCondition]
     """A combination of scope conditions which defines the scope as a whole. The first scope condition that gets matched defines the outcome of whether rules should be evaluated or not, therefore scope condition order is relevant."""
