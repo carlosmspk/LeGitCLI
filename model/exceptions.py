@@ -1,4 +1,4 @@
-class IllegalAbstractClassInitCall(Exception):
+class AbstractClassInstantiatedError(Exception):
     """Attempted to instantiate an abstract class"""
 
     def __init__(self, abstract_class_type: type) -> None:
