@@ -81,4 +81,4 @@ TODO: Create decorator to automatically associate RuleType variant to class so w
 Scoped Rulesets simply combine a set of scope conditions (i.e. a Scope) and associate a collection of rules (i.e. a Ruleset). Of particular importance:
  - Scope conditions should be evaluated on first-match (order is relevant): check each scope condition, if it matches, use that scope condition's action immediately; if it does not match, carry on to check if the next scope condition matches, and so on... If no scope conditions match, by default, exclude ruleset
 
- - Rules should be all be evaluated. The entire pipeline will fail if a single rule mismatches (rules define conditions for a valid git event). However, all rules should be validated, in order to collect a single result to report which rules failed
+ - Rules should all be evaluated. The entire pipeline will fail if a single rule mismatches (rules define conditions for a valid git event). However, all rules should be validated, in order to collect a single result to report which rules failed
