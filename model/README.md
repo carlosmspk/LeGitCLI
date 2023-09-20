@@ -38,8 +38,6 @@ class AuthorNameScopeCondition(ScopeCondition):
     author_name: str
 ```
 
-TODO: Create decorator to automatically associate RuleType variant to class so we don't need to add all the boiler plate code
-
 ## Rules
 
 Rules are the core dataclass for the validators from LeGit's pipeline. A rule defines the conditions for a git event to be valid (i.e., should be allowed to proceed)
