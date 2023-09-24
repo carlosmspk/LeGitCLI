@@ -1,3 +1,3 @@
-# Rulefile Samples
+# Rule File Samples
 
-Collection of rulefiles for ease of access. These files are not guaranteed to be valid
+Some samples of rule files for ease of access. These files are not guaranteed to be valid
