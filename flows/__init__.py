@@ -1,10 +1,12 @@
 from enum import Enum
 from typing import Callable
 import flows.validate as validate
+import flows.help as help
 
 
 class Flows(Enum):
     VALIDATE = validate.run_flow
+    HELP = help.run_flow
 
     @staticmethod
     def get(key: str) -> Callable[[], None]:
@@ -15,7 +17,7 @@ class Flows(Enum):
             name: value
             for name, value in filter(lambda x: x[0].isupper(), Flows.__dict__.items())
         }
-        return self_dict.[key]
+        return self_dict.get(key, Flows.HELP)
 
     @staticmethod
     def get_flow_names() -> list[str]:
