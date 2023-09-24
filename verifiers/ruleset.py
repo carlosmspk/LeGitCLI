@@ -1,6 +1,6 @@
 from git.client import GitReadonlyClient
 from model.ruleset import ScopedRuleset
-from model.verifier_results import CommitScopedRulesetVerifierResult
+from model.verifier_results import FailedRule, CommitScopedRulesetVerifierResult
 
 
 class CommitScopedRulesetVerifier:
@@ -20,3 +20,20 @@ class CommitScopedRulesetVerifier:
         Returns:
             CommitScopedRulesetVerifierResult: data class with info such as failed rules and whether or not scope is in-scope or if the commit should fail
         """
+        # TODO: replace with actual implementation
+        try:
+            return CommitScopedRulesetVerifierResult(
+                triggered_scope=scoped_ruleset.scope_name,
+                should_fail=True,
+                failed_rules=[
+                    FailedRule(
+                        rule=next(scoped_ruleset.ruleset.__iter__()),
+                        container_scope_name=scoped_ruleset.scope_name,
+                        failed_reason="Expected a maximum commit message size of 100, but commit message is 237 characters long",
+                    )
+                ],
+            )
+        except:
+            return CommitScopedRulesetVerifierResult(
+                triggered_scope=scoped_ruleset.scope_name, should_fail=False
+            )
