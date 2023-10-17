@@ -45,3 +45,8 @@ class BranchNameScopeCondition(ScopeCondition):
         - TODO: Implement our own class for format strings which have methods to identify and replace certain
     keywords and replace with runtime values (e.g. `'LG[number]-[anything]'` to match a feature branch)
     """
+
+
+@dataclass(frozen=True)
+class AlwaysTrueScopeCondition(ScopeCondition):
+    """Scope Condition that always matches as true. Used for generic rules that should always apply"""
