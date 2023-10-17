@@ -14,12 +14,12 @@ ScopedRules:
       # number followed by an hiphen and arbitrary text (numerical or
       # otherwise). The action tells LeGit to include this scope, so rules will
       # be evaluated for branches which obey this scope
-      - Type: BranchNameScope
+      - Type: BranchName
         # Wether to include when scope condition is met, or exclude. All scope
         # conditions must have this Action specified
         Action: include
         Parameters:
-          # Field specific to BranchNameScope. Format string where "[]" are used
+          # Field specific to BranchName. Format string where "[]" are used
           # as formatting delimiters
           NameLike: "[number]-[text]"
     # List of rules to evaluate, should the scope above be met

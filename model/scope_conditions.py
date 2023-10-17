@@ -22,7 +22,7 @@ class ScopeCondition:
         guards.prevent_abstract_instantiation(self, ScopeCondition)
 
 
-@scope_condition_binds_to_type("BranchNameScope")
+@scope_condition_binds_to_type("BranchName")
 @dataclass(frozen=True)
 class BranchNameScopeCondition(ScopeCondition):
     """Scope Condition that matches the current branch's name with a formatted string
