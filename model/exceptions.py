@@ -32,3 +32,12 @@ class RedefinedEntityTypeBindingError(Exception):
         super().__init__(
             f"Attempted to redefine YAML {entity} type '{redefined_type}' on class '{attempted_to_define_type.__name__}' but this type was already assigned to class '{previously_defined_type.__name__}'"
         )
+
+
+class UnknownLegitEntityTypeError(Exception):
+    """Found rule or scope condition type name that was not bound to a concrete rule or scope condition dataclass"""
+
+    def __init__(self, entity: str, unknown_entity_name: str) -> None:
+        super().__init__(
+            f"Unknown {entity} type: '{unknown_entity_name}'. Either this {entity} has a typo, or no dataclass exists with the approppriate binding annotation."
+        )
