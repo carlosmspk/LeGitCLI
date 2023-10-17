@@ -17,3 +17,18 @@ class LeGitRulesMissingYamlFieldError(Exception):
         super().__init__(
             f"Missing required field '{required_field_name}' at '{' > '.join(field_path)} > {required_field_name}'"
         )
+
+
+class RedefinedEntityTypeBindingError(Exception):
+    """Annotated two different rule or scope condition dataclasses with the same YAML type name"""
+
+    def __init__(
+        self,
+        entity: str,
+        redefined_type: str,
+        previously_defined_type: type,
+        attempted_to_define_type: type,
+    ) -> None:
+        super().__init__(
+            f"Attempted to redefine YAML {entity} type '{redefined_type}' on class '{attempted_to_define_type.__name__}' but this type was already assigned to class '{previously_defined_type.__name__}'"
+        )
