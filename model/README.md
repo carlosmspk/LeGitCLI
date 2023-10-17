@@ -25,18 +25,35 @@ Depending on the scope condition order this could translate to "only evaluate no
 
 ### Adding a Scope Condition
 
-To add a scope you can simply add new class that inherits from Scope
+To add a scope you can simply add new class that inherits from `ScopeCondition` and annotate it with the YAML `Type` field that you wish that scope condition to match with
 
 #### Example - Create a scope condition for commit author
 
 For a new scope condition which scopes to author, we'd do something like the following in [the scope conditions file](./scopes_conditions.py)
 
 ```python
+@scope_condition_binds_to_type("AuthorName")
 @dataclass(frozen=True)
 class AuthorNameScopeCondition(ScopeCondition):
     """Scope condition that matches the current user's name"""
-    author_name: str
+    first_name: str
 ```
+
+This would match the following scope:
+
+```yaml
+ScopedRules:
+  ...
+  - Scope:
+    ...
+    - Type: AuthorName
+      Action: include
+      Parameters:
+        FirstName: "Bob"
+    ...
+```
+
+Note that each YAML field's name is automatically inferred from Python's field name (in the previous example: `first_name` (Python) -> `FirstName` (YAML))
 
 ## Rules
 
@@ -44,33 +61,36 @@ Rules are the core dataclass for the validators from LeGit's pipeline. A rule de
 
 ### Adding a Rule
 
-To add a rule you can follow the steps:
- 1 - Add the rule's name as should be stated in LeGit's rule file as a rule type
- 2 - Create a new subclass of Rule, which initializes the abstract Rule with the given rule type above
+The procedure to add a rule is the same as with a scope condition. You can simply add new class that inherits from `Rule` and annotate it with the YAML `Type` field that you wish that scope condition to match with
 
 #### Example - Create a new rule for maximum allowed diffs
 
 For a new rule which limits how many diffs a single commit can have, we could have something like the following in [the rules file](./rules.py)
 
 ```python
-class RuleType(Enum):
-    ...
-    MAX_ALLOWED_FILE_DIFF = "MaxAllowedFileDiff"
-
-...
-
+@rule_binds_to_type("MaxAllowedFileDiff")
+@dataclass(frozen=True)
 class MaxAllowedFileDiffRule(Rule):
-    """Limits how much diff per file is allowed for a single commit."""
-
-    def __init__(self, max_diff_lines: int) -> None:
-        super().__init__(RuleType.MAX_ALLOWED_FILE_DIFF)
-        self.max_diff_lines = max_diff_lines
-
-    @property
-    def max_diff_lines(self) -> int:
-        """Maximum line diff per file (inclusive)"""
-        return self.max_diff_lines
+    """Rule that prevents commits that change too many lines of code"""
+    max_diff_lines: int
 ```
+
+This would match the following rule:
+
+```yaml
+ScopedRules:
+  ...
+  - Scope:
+    ...
+    Rules:
+    ...
+    - Type: MaxAllowedFileDiff
+      Parameters:
+        MaxDiffLines: 100
+    ...
+```
+
+Note that each YAML field's name is automatically inferred from Python's field name (in the previous example: `max_diff_lines` (Python) -> `MaxDiffLines` (YAML))
 
 # Scoped Rulesets
 
