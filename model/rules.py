@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from model.annotations import rule_binds_to_type
 from typeutils import guards
 
 
@@ -9,6 +10,7 @@ class Rule:
         guards.prevent_abstract_instantiation(self, Rule)
 
 
+@rule_binds_to_type("CommitMessageSize")
 @dataclass(frozen=True)
 class CommitMessageSizeRule(Rule):
     """Rule for limiting commit message's size. Maximum size is inclusive."""
