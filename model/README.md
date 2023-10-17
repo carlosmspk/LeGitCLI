@@ -72,8 +72,6 @@ class MaxAllowedFileDiffRule(Rule):
         return self.max_diff_lines
 ```
 
-TODO: Create decorator to automatically associate RuleType variant to class so we don't need to add all the boiler plate code
-
 # Scoped Rulesets
 
 Scoped Rulesets simply combine a set of scope conditions (i.e. a Scope) and associate a collection of rules (i.e. a Ruleset). Of particular importance:
