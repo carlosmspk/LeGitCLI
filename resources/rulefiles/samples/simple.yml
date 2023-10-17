@@ -3,7 +3,7 @@
 Config: {}
 
 # Rules that should be applied to all cases, regardless of scope
-GenericRules: {}
+GenericRules: []
 
 # Rules with specific scopes attached to them
 ScopedRules:
