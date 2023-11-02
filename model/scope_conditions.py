@@ -1,6 +1,7 @@
 from enum import Enum
 from dataclasses import dataclass
-import abstract.guards as guards
+from model.annotations import scope_condition_binds_to_type
+from typeutils import guards
 
 
 class ScopeConditionAction(Enum):
@@ -21,6 +22,7 @@ class ScopeCondition:
         guards.prevent_abstract_instantiation(self, ScopeCondition)
 
 
+@scope_condition_binds_to_type("BranchName")
 @dataclass(frozen=True)
 class BranchNameScopeCondition(ScopeCondition):
     """Scope Condition that matches the current branch's name with a formatted string
@@ -43,3 +45,8 @@ class BranchNameScopeCondition(ScopeCondition):
         - TODO: Implement our own class for format strings which have methods to identify and replace certain
     keywords and replace with runtime values (e.g. `'LG[number]-[anything]'` to match a feature branch)
     """
+
+
+@dataclass(frozen=True)
+class AlwaysTrueScopeCondition(ScopeCondition):
+    """Scope Condition that always matches as true. Used for generic rules that should always apply"""
