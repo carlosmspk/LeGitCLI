@@ -4,6 +4,15 @@ Scripts to be executed directly, with the exception of [scriptutils](./scriptuti
 
 Attempting to import anything from this module externally will result in an `ImportError`
 
+### `setup_or_update.py`
+
+Sets up a Python Virtual environment and packages.
+
+```bash
+python setup_or_update.py
+```
+
+Creates a Python Virtual Environment if none is found and installs python packages from [requirements.txt](../requirements.txt). If Python Virtual environment is already setup, just installs/updates packages
 ### `create-dummy-git-project.sh`
 
 Create a Subfolder with a Dummy Project for Testing
