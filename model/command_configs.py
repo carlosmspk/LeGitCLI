@@ -3,6 +3,7 @@ from enum import Enum, auto
 
 class OutputLevel(Enum):
     """Controls output of executed commands"""
+
     STANDARD = ""
     """prints standard output and error to terminal"""
     SILENT = auto()

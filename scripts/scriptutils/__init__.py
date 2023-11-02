@@ -31,7 +31,7 @@ def get_valid_command_from(commands: str | tuple[str]) -> str | None:
     """
     Checks if a command is valid and returns the first valid command from a
     given list of commands.
-    
+
     ### Args - `commands` parameter can be either a string or a tuple of
     strings. It represents a list of commands that you want to check for
     validity, or just the single command
@@ -61,7 +61,7 @@ def set_project_root_as_active_dir() -> str:
     """
     Sets the project root directory as the active directory and returns the path of the
     project root directory.
-    
+
     ### Returns
     String with project root directory.
     """
