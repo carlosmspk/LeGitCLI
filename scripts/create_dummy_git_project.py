@@ -22,10 +22,10 @@ if __name__ == "__main__":
 
     project_root_dir = set_project_root_as_active_dir()
 
-    main_py_dir = os.path.join(project_root_dir, "main.py")
-    if not os.path.exists(main_py_dir):
+    legit_py_dir = os.path.join(project_root_dir, "legit.py")
+    if not os.path.exists(legit_py_dir):
         print(
-            f"Could not find main.py file to reference. Perhaps either main.py or this script were moved? Expected main.py file to be at: {main_py_dir}"
+            f"Could not find main.py file to reference. Perhaps either main.py or this script were moved? Expected main.py file to be at: {legit_py_dir}"
         )
         exit(1)
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     pre_commit_hook_file = os.path.join(".git", "hooks", "pre-commit")
 
     with open(os.path.join(target, pre_commit_hook_file), "w") as f:
-        f.write(f"{python_command} {main_py_dir}\n")
+        f.write(f"{python_command} {legit_py_dir}\n")
     os.chmod(pre_commit_hook_file, 0o777)
 
     print(f"Created new git project at ./{os.path.relpath(target, project_root_dir)}")
