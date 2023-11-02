@@ -18,14 +18,14 @@ class GitReadonlyClient:
 
     def get_current_branch(self) -> str:
         """Returns the current active branch's name"""
-        ...
+        return "develop"
 
     def get_author(self) -> tuple[str, str]:
         """
         Returns the configured user/author. Result is returned as tuple of name
         and email, respectively
         """
-        ...
+        return ("Author's Name", "author@mail.com")
 
 
 class GitClient(GitReadonlyClient):
