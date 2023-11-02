@@ -1,21 +1,48 @@
+from argparse import ArgumentParser
 from git.client import GitReadonlyClient
 from parsing import parse_legit_file
 from utils import LazyFileReader
 from validator.commit import CommitValidator
+from model.globals import Globals
 
-__DEV_MODE = True  # TODO: define this as command arg
+
+class FlowArgs:
+    def __init__(self, args: list[str]) -> None:
+        parser = ArgumentParser(
+            prog="legit validate",
+            description="validate ongoing commit, given commit message file",
+        )
+        parser.add_argument("message-file", help="path of file with commit message")
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            action="store_true",
+            help="if true, prints extra info as to which scopes are checked and their results",
+        )
+        parser.add_argument(
+            "-r",
+            "--rules-file",
+            help="path of file with legit rules. By default, uses 'legitrules.yml' in current directory",
+            default="legitrules.yml",
+        )
+        prased_args = {
+            key: value for (key, value) in parser.parse_args(args)._get_kwargs()
+        }
+        self.rules_path: str = prased_args["rules_file"]
+        self.verbose: bool = prased_args["verbose"]
+        self.commit_message_path: str = prased_args["message-file"]
 
 
 def run_flow(args: list[str]):
     """This flow validates an ongoing git process, such as a commit, and exits
     with exit code 0 if git process is valid, or non-zero otherwise"""
-    legit_file = LazyFileReader(
-        "legitrules.yml" if not __DEV_MODE else "resources/rulefiles/samples/simple.yml"
-    )
+    flow_args = FlowArgs(args)
+    if flow_args.verbose:
+        Globals.verbose = True
 
-    commit_message_file = LazyFileReader(
-        "resources/message/short_message.txt"
-    )  # TODO: retrieve this as argument to legit CLI
+    legit_file = LazyFileReader(flow_args.rules_path)
+
+    commit_message_file = LazyFileReader(flow_args.commit_message_path)
 
     scoped_rulesets, config = parse_legit_file(legit_file)
 
@@ -25,7 +52,7 @@ def run_flow(args: list[str]):
         filter(lambda x: x.should_fail, triggered_scopes_results)
     )
 
-    if __DEV_MODE:
+    if Globals.verbose:
         for failing_scope_result in triggered_scopes_results:
             failed_rules_message = (
                 "and failed because:\n\t- "
