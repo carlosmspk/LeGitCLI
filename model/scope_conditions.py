@@ -11,7 +11,7 @@ class ScopeConditionAction(Enum):
     EXCLUDE = "exclude"
 
 
-@dataclass(frozen=True)
+@dataclass
 class ScopeCondition:
     """Pseudo-abstract base data class for all concrete Scope condition dataclasses. A scope condition defines a single condition for a scope to match and how to proceed should the scope match."""
 
@@ -23,7 +23,7 @@ class ScopeCondition:
 
 
 @scope_condition_binds_to_type("BranchName")
-@dataclass(frozen=True)
+@dataclass
 class BranchNameScopeCondition(ScopeCondition):
     """Scope Condition that matches the current branch's name with a formatted string
 
@@ -47,6 +47,6 @@ class BranchNameScopeCondition(ScopeCondition):
     """
 
 
-@dataclass(frozen=True)
+@dataclass
 class AlwaysTrueScopeCondition(ScopeCondition):
     """Scope Condition that always matches as true. Used for generic rules that should always apply"""

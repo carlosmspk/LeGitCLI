@@ -4,7 +4,7 @@ from model.rules import Rule
 from model.scope_conditions import ScopeCondition
 
 
-@dataclass(frozen=True)
+@dataclass
 class ScopedRuleset:
     """Class with rules to be applied to matching scope conditions, depending on the matched scope action."""
 
