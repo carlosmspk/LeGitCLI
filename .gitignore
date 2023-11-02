@@ -161,3 +161,6 @@ cython_debug/
 
 # Dummy Project for Testing
 sample_projects
+
+# IDE files
+.vscode
