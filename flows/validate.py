@@ -6,7 +6,7 @@ from validator.commit import CommitValidator
 __DEV_MODE = True  # TODO: define this as command arg
 
 
-def run_flow():
+def run_flow(args: list[str]):
     """This flow validates an ongoing git process, such as a commit, and exits
     with exit code 0 if git process is valid, or non-zero otherwise"""
     legit_file = LazyFileReader(

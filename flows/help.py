@@ -1,4 +1,4 @@
-def run_flow():
+def run_flow(args: list[str]):
     """This flow prints out legit usage and returns"""
     from flows import Flows
 

@@ -1,11 +1,15 @@
+import sys
 from flows import Flows
 
 
 def main():
-    # TODO: Pick different flows depending on CLI verb (e.g. legit validate vs
-    # legit config vs legit help)
-    flow = Flows.VALIDATE
-    flow()
+    if len(sys.argv) < 2:
+        sys.stderr.write("ERROR: Missing verb\n")
+        Flows.HELP([])
+        exit(1)
+    _, verb, *args = sys.argv
+    flow = Flows.get(verb)
+    flow(args)
 
 
 if __name__ == "__main__":
