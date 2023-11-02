@@ -9,11 +9,14 @@ class ScopedRulesetConverter(BaseConverter[dict, ScopedRuleset]):
         super().__init__(scoped_ruleset, field_path, dict)
 
     def convert(self) -> ScopedRuleset:
-        self._assert_fields(required_field_names={"Scope", "Rules"})
+        self._assert_fields(required_field_names={"Scope", "Rules", "Name"})
+        scoped_ruleset_name = self.object_to_convert["Name"]
         converted_rule_list = self._convert_rules()
         converted_scope_condition_list = self._convert_scope_conditions()
 
-        return ScopedRuleset(converted_scope_condition_list, converted_rule_list)
+        return ScopedRuleset(
+            scoped_ruleset_name, converted_scope_condition_list, converted_rule_list
+        )
 
     def _convert_scope_conditions(self):
         converted_scope_condition_list = []
