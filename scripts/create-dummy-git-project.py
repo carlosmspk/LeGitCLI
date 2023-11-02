@@ -1,3 +1,14 @@
+"""
+This script is designed to create a new subfolder at the project's root directory with the name 'TargetProject' or a custom name provided by the '--target' argument. It sets up this folder as a Git repository with a single initial commit and adds a 'content.txt' file.
+
+Usage:
+    python create_project.py [--target TARGET_NAME]
+
+Options:
+    --target TARGET_NAME    Specify the name of the subfolder to create at the project's root directory. The default name is 'default'.
+
+"""
+
 if __name__ == "__main__":
     import argparse
     import shutil
