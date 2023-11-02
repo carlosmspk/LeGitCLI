@@ -2,9 +2,9 @@ from model.config import Config
 from model.ruleset import ScopedRuleset
 import yaml
 from parsing.converters.legit_rules_converter import LegitRulesConverter
+from utils import LazyFileReader
 
 
-def parse_legit_file(legit_file_path: str) -> tuple[list[ScopedRuleset], Config]:
-    with open(legit_file_path, "r") as f:
-        yaml_data = yaml.safe_load(f)
+def parse_legit_file(legit_file: LazyFileReader) -> tuple[list[ScopedRuleset], Config]:
+    yaml_data = yaml.safe_load(legit_file.read())
     return LegitRulesConverter(yaml_data).convert()
