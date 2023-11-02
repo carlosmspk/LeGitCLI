@@ -1,9 +1,12 @@
 from typing import Type
 from model.exceptions import RedefinedEntityTypeBindingError
 from model.scope_conditions import (
+    BranchNameScopeCondition,
     ScopeCondition,
+    ScopeConditionAction,
 )
 from model.bindings import scope_matcher_bindings_map
+from validator.generic import CommitScopeConditionMatcher
 
 
 def matches_scope_condition(scope_condition_type: Type[ScopeCondition]):
@@ -24,3 +27,13 @@ def matches_scope_condition(scope_condition_type: Type[ScopeCondition]):
 
     return decorator
 
+
+@matches_scope_condition(BranchNameScopeCondition)
+class BranchNameScopeConditionMatcher(
+    CommitScopeConditionMatcher[BranchNameScopeCondition]
+):
+    def get_action(self) -> ScopeConditionAction | None:
+        current_branch = self._git.get_current_branch()
+        if self._scope_condition.name_like == current_branch:
+            return self._scope_condition.action
+        return None
