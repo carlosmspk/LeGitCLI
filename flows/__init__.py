@@ -12,7 +12,7 @@ class Flows(Enum):
     def get(key: str) -> Callable[[], None]:
         """Get flow function from key. If key can't be found, returns
         default 'help' flow. Key value is not case sensitive"""
-        key, default = key.upper(), default.upper()
+        key = key.upper()
         self_dict = {
             name: value
             for name, value in filter(lambda x: x[0].isupper(), Flows.__dict__.items())
@@ -20,6 +20,6 @@ class Flows(Enum):
         return self_dict.get(key, Flows.HELP)
 
     @staticmethod
-    def get_flow_names() -> list[str]:
-        """Returns a list of all flow variants' names, lower cased."""
+    def get_flow_names() -> set[str]:
+        """Returns a set of all flow variants' names, lower cased."""
         return {name.lower() for name in filter(str.isupper, Flows.__dict__)}

@@ -1,4 +1,5 @@
 from dataclasses import fields
+from typing import Any
 from model.exceptions import (
     UnknownLegitEntityTypeError,
 )
@@ -56,7 +57,7 @@ class ConcreteScopeConditionParametersConverter(BaseConverter[dict, ScopeConditi
         self.scope_action = self._get_action_enum_from_string(scope_action)
 
     def convert(self) -> ScopeCondition:
-        field_values: dict[str, str] = {"action": self.scope_action}
+        field_values: dict[str, Any] = {"action": self.scope_action}
 
         field_names = {
             field.name: _snake_to_pascal(field.name)
@@ -70,7 +71,7 @@ class ConcreteScopeConditionParametersConverter(BaseConverter[dict, ScopeConditi
             param_python_name: self.object_to_convert[param_yaml_name]
             for param_python_name, param_yaml_name in field_names.items()
         }
-        return self.ScopeConditionDataclass(**field_values)
+        return self.ScopeConditionDataclass(action=self.scope_action, **field_values)
 
     def _get_action_enum_from_string(self, action_str: str) -> ScopeConditionAction:
         for action in ScopeConditionAction:
