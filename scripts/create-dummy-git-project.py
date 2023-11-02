@@ -1,5 +1,5 @@
 """
-This script is designed to create a new subfolder at the project's root directory with the name 'TargetProject' or a custom name provided by the '--target' argument. It sets up this folder as a Git repository with a single initial commit and adds a 'content.txt' file.
+This script is designed to create a new subfolder at the project's root directory with the name 'sample_projects', and further creates a subfolder in it named 'default' or a custom name provided by the '--target' argument. It sets up this folder as a Git repository with a single initial commit with a 'content.txt' file.
 
 Usage:
     python create_project.py [--target TARGET_NAME]
@@ -30,7 +30,7 @@ if __name__ == "__main__":
         exit(1)
 
     parser = argparse.ArgumentParser(
-        description="Creates a subfolder at project's root dir with name TargetProject or whatever name is given by the --target argument, if given. This folder will then be setup to be a git repo with a single commit, and have a content.txt file"
+        description="Creates a subfolder at folder 'sample_projects' in this project's rootdir. The subfolder itself is named 'default' or whatever name is given by the --target argument, if given. This folder will then be setup to be a git repo with a single commit, and have a content.txt file"
     )
     parser.add_argument("--target", type=str, default="default")
     target: str = os.path.join(
