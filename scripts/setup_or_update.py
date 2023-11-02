@@ -1,3 +1,17 @@
+"""
+This script is designed to set up a Python Virtual Environment and
+install/update required packages listed in 'requirements.txt' within the project
+directory. It checks if a Virtual Environment exists and, if not, creates one.
+It also verifies the presence of Python and Pip binaries and installs the
+required packages. After execution, it provides instructions on how to activate
+and deactivate the Virtual Environment manually.
+
+Usage:
+    Run this script as a standalone application to set up the environment and
+    install/update required packages.
+
+"""
+
 if __name__ == "__main__":
     from scriptutils import (
         run_command,
