@@ -1,5 +1,6 @@
 from typing import Type
-from model.rules import Rule
+from model.rules import CommitMessageSizeRule, Rule
+from validator.generic import CommitRuleValidator, CommitRuleValidatorResult
 from model.exceptions import RedefinedEntityTypeBindingError
 from model.bindings import rule_validator_bindings_map
 
@@ -19,3 +20,22 @@ def validates_rule(rule_type: Type[Rule]):
         return cls
 
     return decorator
+
+
+@validates_rule(CommitMessageSizeRule)
+class CommitMessageSizeValidator(CommitRuleValidator[CommitMessageSizeRule]):
+    def validate_commit(self) -> CommitRuleValidatorResult:
+        result = CommitRuleValidatorResult()
+        commit_message = self._commit_message_file.read()
+        commit_message_size = 0
+        for line in commit_message:
+            comment_token_index = line.strip().find("#")
+            if comment_token_index != 0:
+                commit_message_size += len(line)
+
+        if commit_message_size > self._rule.max_size:
+            result.set_failed(
+                f"Expected a maximum commit message size of {self._rule.max_size}, but commit message is {commit_message_size} characters long"
+            )
+
+        return result
