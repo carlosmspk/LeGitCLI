@@ -28,6 +28,13 @@ class GitReadonlyClient:
 
         return run_command("git rev-parse --git-dir").strip()
 
+    def get_config(self, config_key: str) -> str | None:
+        """
+        Retrieves a Git configuration value based on the provided configuration
+        key, or `None`, if the given `config_key` does not exist.
+        """
+        return run_command(f"git config {config_key}").strip() or None
+
 
 class GitClient(GitReadonlyClient):
     """
