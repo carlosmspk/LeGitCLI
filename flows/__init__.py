@@ -2,11 +2,13 @@ from enum import Enum
 from typing import Callable
 import flows.validate as validate
 import flows.help as help
+import flows.setup as setup
 
 
 class Flows(Enum):
     VALIDATE = validate.run_flow
     HELP = help.run_flow
+    SETUP = setup.run_flow
 
     @staticmethod
     def get(key: str) -> Callable[[], None]:
