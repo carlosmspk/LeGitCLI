@@ -1,10 +1,11 @@
+from typing import List
 from model.rules import Rule
 from parsing.converters.base_converter import BaseConverter
 from parsing.converters.dynamic import ConcreteRuleParametersConverter
 
 
 class RuleConverter(BaseConverter[dict, Rule]):
-    def __init__(self, rule_dict: dict, field_path: list[str]) -> None:
+    def __init__(self, rule_dict: dict, field_path: List[str]) -> None:
         super().__init__(rule_dict, field_path, dict)
 
     def convert(self) -> Rule:

@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, Union
 from model.exceptions import RedefinedEntityTypeBindingError
 from model.scope_conditions import (
     BranchNameScopeCondition,
@@ -32,7 +32,7 @@ def matches_scope_condition(scope_condition_type: Type[ScopeCondition]):
 class BranchNameScopeConditionMatcher(
     CommitScopeConditionMatcher[BranchNameScopeCondition]
 ):
-    def get_action(self) -> ScopeConditionAction | None:
+    def get_action(self) -> Union[ScopeConditionAction, None]:
         current_branch = self._git.get_current_branch()
         if self._scope_condition.name_like == current_branch:
             return self._scope_condition.action

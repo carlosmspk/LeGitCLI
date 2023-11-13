@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Callable
+from typing import Callable, Set
 import flows.validate as validate
 import flows.help as help
 import flows.setup as setup
@@ -22,6 +22,6 @@ class Flows(Enum):
         return self_dict.get(key, Flows.HELP)
 
     @staticmethod
-    def get_flow_names() -> set[str]:
+    def get_flow_names() -> Set[str]:
         """Returns a set of all flow variants' names, lower cased."""
         return {name.lower() for name in filter(str.isupper, Flows.__dict__)}

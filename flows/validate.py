@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from typing import List
 from git.client import GitReadonlyClient
 from parsing import parse_legit_file
 from utils import LazyFileReader
@@ -7,7 +8,7 @@ from model.globals import Globals
 
 
 class FlowArgs:
-    def __init__(self, args: list[str]) -> None:
+    def __init__(self, args: List[str]) -> None:
         parser = ArgumentParser(
             prog="legit validate",
             description="validate ongoing commit, given commit message file",
@@ -33,7 +34,7 @@ class FlowArgs:
         self.commit_message_path: str = prased_args["message-file"]
 
 
-def run_flow(args: list[str]):
+def run_flow(args: List[str]):
     """This flow validates an ongoing git process, such as a commit, and exits
     with exit code 0 if git process is valid, or non-zero otherwise"""
     flow_args = FlowArgs(args)

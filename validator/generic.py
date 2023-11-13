@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Union
 from git.client import GitReadonlyClient
 from model.scope_conditions import ScopeConditionAction
 from utils import LazyFileReader
@@ -10,7 +10,7 @@ T = TypeVar("T")
 class CommitRuleValidatorResult:
     def __init__(self) -> None:
         self.failed = False
-        self.fail_reason: str | None = None
+        self.fail_reason: Union [str, None] = None
 
     def set_failed(self, reason: str):
         self.failed = True
@@ -42,5 +42,5 @@ class CommitScopeConditionMatcher(ABC, Generic[T]):
         self._scope_condition = scope_condition
 
     @abstractmethod
-    def get_action(self) -> ScopeConditionAction | None:
+    def get_action(self) -> Union[ScopeConditionAction, None]:
         ...

@@ -1,5 +1,5 @@
 from dataclasses import fields
-from typing import Any
+from typing import Any, List
 from model.exceptions import (
     UnknownLegitEntityTypeError,
 )
@@ -15,7 +15,7 @@ def _snake_to_pascal(s):
 
 class ConcreteRuleParametersConverter(BaseConverter[dict, Rule]):
     def __init__(
-        self, object_to_convert: dict, field_path: list[str], rule_type: str
+        self, object_to_convert: dict, field_path: List[str], rule_type: str
     ) -> None:
         super().__init__(object_to_convert, field_path, dict)
         if rule_type not in rule_bindings_map:
@@ -44,7 +44,7 @@ class ConcreteScopeConditionParametersConverter(BaseConverter[dict, ScopeConditi
     def __init__(
         self,
         object_to_convert: dict,
-        field_path: list[str],
+        field_path: List[str],
         scope_action: str,
         scope_type: str,
     ) -> None:

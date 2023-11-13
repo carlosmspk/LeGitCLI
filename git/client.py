@@ -1,3 +1,4 @@
+from typing import Union, Tuple
 from command import run_command
 import os
 
@@ -11,7 +12,7 @@ class GitReadonlyClient:
     def get_current_branch(self) -> str:
         return run_command("git rev-parse --abbrev-ref HEAD").strip()
 
-    def get_author(self) -> tuple[str | None, str | None]:
+    def get_author(self) -> Tuple[Union[str, None], Union[str, None]]:
         """
         Returns the configured user/author. Result is returned as tuple of name
         and email, respectively
@@ -28,7 +29,7 @@ class GitReadonlyClient:
 
         return run_command("git rev-parse --git-dir").strip()
 
-    def get_config(self, config_key: str) -> str | None:
+    def get_config(self, config_key: str) -> Union[str, None]:
         """
         Retrieves a Git configuration value based on the provided configuration
         key, or `None`, if the given `config_key` does not exist.
@@ -52,7 +53,7 @@ class GitClient(GitReadonlyClient):
     directory.
     """
 
-    def init(self, main_branch: str | None):
+    def init(self, main_branch: Union[str, None]):
         """Initializes a git repository at current directory. Accepts an initial
         main branch name (default: 'main').
 
@@ -77,7 +78,7 @@ class GitClient(GitReadonlyClient):
         """
         run_command(f'git commit -m "{message}"')
 
-    def stage(self, file_path: str | None):
+    def stage(self, file_path: Union[str, None]):
         """
         Stages `file_path` for committing.
 

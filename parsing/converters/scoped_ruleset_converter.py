@@ -1,3 +1,4 @@
+from typing import List
 from model.ruleset import ScopedRuleset
 from parsing.converters.base_converter import BaseConverter
 from parsing.converters.rule_converter import RuleConverter
@@ -5,7 +6,7 @@ from parsing.converters.scope_condition_converter import ScopeConditionConverter
 
 
 class ScopedRulesetConverter(BaseConverter[dict, ScopedRuleset]):
-    def __init__(self, scoped_ruleset: dict, field_path: list[str]) -> None:
+    def __init__(self, scoped_ruleset: dict, field_path: List[str]) -> None:
         super().__init__(scoped_ruleset, field_path, dict)
 
     def convert(self) -> ScopedRuleset:

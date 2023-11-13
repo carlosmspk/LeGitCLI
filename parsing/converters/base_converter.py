@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, List, Set
 from typeutils import guards
 from model.exceptions import LeGitRulesMissingYamlFieldError
 
@@ -10,7 +10,7 @@ class BaseConverter(Generic[I, O]):
     """Pseudo-abstract base class for Converters, which takes in"""
 
     def __init__(
-        self, object_to_convert: I, field_path: list[str], expected_type: type
+        self, object_to_convert: I, field_path: List[str], expected_type: type
     ) -> None:
         guards.prevent_abstract_instantiation(self, BaseConverter)
         guards.assert_type(object_to_convert, expected_type, ">".join(field_path))
@@ -22,8 +22,8 @@ class BaseConverter(Generic[I, O]):
 
     def _assert_fields(
         self,
-        required_field_names: set[str] = set(),
-        optional_field_names: set[str] = set(),
+        required_field_names: Set[str] = set(),
+        optional_field_names: Set[str] = set(),
     ):
         known_field_names = required_field_names.union(optional_field_names)
 

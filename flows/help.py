@@ -1,4 +1,7 @@
-def run_flow(args: list[str]):
+from typing import List
+
+
+def run_flow(args: List[str]):
     """This flow prints out legit usage and returns"""
     from flows import Flows
 

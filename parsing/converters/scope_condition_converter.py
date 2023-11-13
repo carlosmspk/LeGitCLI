@@ -1,10 +1,11 @@
+from typing import List
 from model.scope_conditions import ScopeCondition
 from parsing.converters.base_converter import BaseConverter
 from parsing.converters.dynamic import ConcreteScopeConditionParametersConverter
 
 
 class ScopeConditionConverter(BaseConverter[dict, ScopeCondition]):
-    def __init__(self, scope_condition_dict: dict, field_path: list[str]) -> None:
+    def __init__(self, scope_condition_dict: dict, field_path: List[str]) -> None:
         super().__init__(scope_condition_dict, field_path, dict)
 
     def convert(self) -> ScopeCondition:

@@ -1,3 +1,4 @@
+from typing import List
 from git.client import GitReadonlyClient
 from model.config import Config
 from model.ruleset import ScopedRuleset
@@ -18,8 +19,8 @@ class CommitValidator:
         )
 
     def validate_commit(
-        self, scoped_rulesets: list[ScopedRuleset]
-    ) -> list[CommitScopedRulesetValidatorResult]:
+        self, scoped_rulesets: List[ScopedRuleset]
+    ) -> List[CommitScopedRulesetValidatorResult]:
         triggered_scopes_results = []
         for scoped_ruleset in scoped_rulesets:
             result = self.__scoped_ruleset_validator.validate_commit_scoped_ruleset(

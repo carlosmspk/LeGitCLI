@@ -1,5 +1,6 @@
 from os.path import join, exists, relpath
 from os import pardir, curdir
+from typing import List
 from git.client import GitReadonlyClient
 
 MINIMAL_LEGIT_RULES_FILE = r"""
@@ -13,7 +14,7 @@ ScopedRules: []
 """
 
 
-def run_flow(args: list[str]):
+def run_flow(args: List[str]):
     print("Setting up...")
 
     LEGIT_COMMAND = "legit"
