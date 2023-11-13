@@ -1,0 +1,10 @@
+# This is the list of LeGit CLI's significant contributors.
+#
+# This does not necessarily list everyone who has contributed code.
+# To see the full list of contributors, see the revision history in
+# source control.
+Carlos Pinto (aka carlosmspk) <carlosmspk@gmail.com>
+dandepaiva <daniel.paiva@exaud.com>
+naexaud <nuno.aguiar@exaud.com>
+andreomlopes <andreomlopes@gmail.com>"
+Rhaelzo
