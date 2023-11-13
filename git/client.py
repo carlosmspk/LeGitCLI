@@ -23,7 +23,7 @@ class GitReadonlyClient:
 
     def get_dot_git_path(self) -> str:
         """
-        returns the relative path to the `.git` directory.
+        Returns the relative path to the `.git` directory.
         """
 
         return run_command("git rev-parse --git-dir").strip()
@@ -34,6 +34,16 @@ class GitReadonlyClient:
         key, or `None`, if the given `config_key` does not exist.
         """
         return run_command(f"git config {config_key}").strip() or None
+
+    def get_hooks_path(self) -> str:
+        """
+        Returns the path to the directory where Git hooks are stored, either
+        from the Git configuration or the default location.
+        """
+        hooks_dir = self.get_config("core.hooksPath")
+        if hooks_dir is None:
+            hooks_dir = os.path.join(self.get_dot_git_path(), "hooks")
+        return hooks_dir
 
 
 class GitClient(GitReadonlyClient):
