@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "legitcli"
-version = "0.1.2"
+version = "0.1.5"
 description = ""
 authors = [
     "carlosmspk <carlosmspk@gmail.com>",
