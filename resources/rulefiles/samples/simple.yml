@@ -9,7 +9,7 @@ GenericRules: []
 ScopedRules:
   # At least one scope required. This defines in which contexts to evaluate the
   # rules
-  - Name: Develop Commit Message Size
+  - Name: Feature Branch Commit Message Size
     Scope:
       # In this example attached rules should apply to branches that have a
       # number followed by an hiphen and arbitrary text (numerical or
@@ -20,9 +20,12 @@ ScopedRules:
         # conditions must have this Action specified
         Action: include
         Parameters:
-          # Field specific to BranchName. Format string where "[]" are used
-          # as formatting delimiters
-          NameLike: "develop"
+          # Field specific to BranchName. Regex which accepts parameterized
+          # values delimited by "{}". This example matches branches which have
+          # the current user's author name followed by a slash, a number, an
+          # hiphen, and then the rest of the branch's name (e.g.
+          # myname/23-some-name)
+          NameRegex: "{AUTHOR}/[0-9]+-.+"
     # List of rules to evaluate, should the scope above be met
     Rules:
       # All rules come identified by their type
