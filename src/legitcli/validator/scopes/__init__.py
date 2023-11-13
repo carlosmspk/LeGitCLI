@@ -1,11 +1,14 @@
+import re as regex
 from typing import Type, Union
 from legitcli.model.exceptions import RedefinedEntityTypeBindingError
+import legitcli.model.constants as constants
 from legitcli.model.scope_conditions import (
     BranchNameScopeCondition,
     ScopeCondition,
     ScopeConditionAction,
 )
 from legitcli.model.bindings import scope_matcher_bindings_map
+from legitcli.utils.string import replace_params
 from legitcli.validator.generic import CommitScopeConditionMatcher
 
 
@@ -34,6 +37,11 @@ class BranchNameScopeConditionMatcher(
 ):
     def get_action(self) -> Union[ScopeConditionAction, None]:
         current_branch = self._git.get_current_branch()
-        if self._scope_condition.name_like == current_branch:
+        pattern = regex.compile(
+            replace_params(
+                self._scope_condition.name_regex, constants.parameter_value_map
+            )
+        )
+        if regex.match(pattern, current_branch):
             return self._scope_condition.action
         return None
