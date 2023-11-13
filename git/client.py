@@ -21,6 +21,13 @@ class GitReadonlyClient:
             run_command("git config user.email").strip(),
         )
 
+    def get_dot_git_path(self) -> str:
+        """
+        returns the relative path to the `.git` directory.
+        """
+
+        return run_command("git rev-parse --git-dir").strip()
+
 
 class GitClient(GitReadonlyClient):
     """
