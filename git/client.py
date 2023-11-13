@@ -33,7 +33,7 @@ class GitReadonlyClient:
         Retrieves a Git configuration value based on the provided configuration
         key, or `None`, if the given `config_key` does not exist.
         """
-        return run_command(f"git config {config_key}").strip() or None
+        return run_command(f"git config {config_key}", False).strip() or None
 
     def get_hooks_path(self) -> str:
         """
