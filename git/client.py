@@ -11,14 +11,14 @@ class GitReadonlyClient:
     def get_current_branch(self) -> str:
         return run_command("git rev-parse --abbrev-ref HEAD").strip()
 
-    def get_author(self) -> tuple[str, str]:
+    def get_author(self) -> tuple[str | None, str | None]:
         """
         Returns the configured user/author. Result is returned as tuple of name
         and email, respectively
         """
         return (
-            run_command("git config user.name").strip(),
-            run_command("git config user.email").strip(),
+            self.get_config("user.name"),
+            self.get_config("user.email"),
         )
 
     def get_dot_git_path(self) -> str:
