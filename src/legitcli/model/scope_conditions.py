@@ -33,12 +33,12 @@ class BranchNameScopeCondition(ScopeCondition):
     ```python
     scope_condition = BranchNameScopeCondition(
         action=ScopeConditionAction.EXCLUDE,
-        name_like="develop"
+        name_regex="develop"
     )
     ```
     """
 
-    name_like: str
+    name_regex: str
     """
     Format string which indicates which branch names to match.
 
