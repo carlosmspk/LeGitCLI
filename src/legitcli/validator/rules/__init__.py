@@ -26,7 +26,7 @@ def validates_rule(rule_type: Type[Rule]):
 class CommitMessageSizeValidator(CommitRuleValidator[CommitMessageSizeRule]):
     def validate_commit(self) -> CommitRuleValidatorResult:
         result = CommitRuleValidatorResult()
-        commit_message = self._commit_message_file.read()
+        commit_message = self._commit_message_file.get()
         commit_message_size = 0
         for line in commit_message:
             comment_token_index = line.strip().find("#")
