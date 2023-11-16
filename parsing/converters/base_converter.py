@@ -3,7 +3,7 @@ from typeutils import guards
 from model.exceptions import LeGitRulesMissingYamlFieldError
 
 O = TypeVar("O")
-I = TypeVar("I")
+I = TypeVar("I", dict, list)
 
 
 class BaseConverter(Generic[I, O]):
@@ -15,7 +15,7 @@ class BaseConverter(Generic[I, O]):
         guards.prevent_abstract_instantiation(self, BaseConverter)
         guards.assert_type(object_to_convert, expected_type, ">".join(field_path))
         self.field_path = field_path
-        self.object_to_convert = object_to_convert
+        self.object_to_convert: I = object_to_convert
 
     def convert(self) -> O:
         raise NotImplementedError("abstract method 'parse' is meant to be overriden")

@@ -4,10 +4,10 @@ Model classes that behave as data classes, having little to no behavior. Avoid, 
 
 Noteworthy Model types:
 
- - [Config](#config)
- - [Scopes](#scopes)
- - [Rules](#rules)
- - [ScopedRuleSet](#scoped-rule-sets)
+- [Config](#config)
+- [Scopes](#scopes)
+- [Rules](#rules)
+- [ScopedRuleSet](#scoped-rule-sets)
 
 ## Config
 
@@ -18,8 +18,9 @@ Noteworthy Model types:
 Scopes define when the corresponding rules should be applied. A scope can include its matching conditions so that matches lead to the rules being applied, or they can be exclusive, such that a matching scope imediately discards any rule validation. A scope, by itself, can never invalidate a git event
 
 This can be useful in the scenario that we may want to create exceptions. E.g.:
- - scope condition 1: "I want all local commits by author 'admin@mail.com' to be allowed (exclusive)"
- - scope condition 2: "I want to check all commits to develop (inclusive)"
+
+- scope condition 1: "I want all local commits by author 'admin@mail.com' to be allowed (exclusive)"
+- scope condition 2: "I want to check all commits to develop (inclusive)"
 
 Depending on the scope condition order this could translate to "only evaluate non-admin commits to develop" or to "only evaluate admin commits on develop"
 
@@ -33,7 +34,7 @@ For a new scope condition which scopes to author, we'd do something like the fol
 
 ```python
 @scope_condition_binds_to_type("AuthorName")
-@dataclass(frozen=True)
+@dataclass
 class AuthorNameScopeCondition(ScopeCondition):
     """Scope condition that matches the current user's name"""
     first_name: str
@@ -69,7 +70,7 @@ For a new rule which limits how many diffs a single commit can have, we could ha
 
 ```python
 @rule_binds_to_type("MaxAllowedFileDiff")
-@dataclass(frozen=True)
+@dataclass
 class MaxAllowedFileDiffRule(Rule):
     """Rule that prevents commits that change too many lines of code"""
     max_diff_lines: int
@@ -95,6 +96,9 @@ Note that each YAML field's name is automatically inferred from Python's field n
 # Scoped Rulesets
 
 Scoped Rulesets simply combine a set of scope conditions (i.e. a Scope) and associate a collection of rules (i.e. a Ruleset). Of particular importance:
- - Scope conditions should be evaluated on first-match (order is relevant): check each scope condition, if it matches, use that scope condition's action immediately; if it does not match, carry on to check if the next scope condition matches, and so on... If no scope conditions match, by default, exclude ruleset
 
- - All rules should be evaluated. The entire pipeline will fail if a single rule mismatches (rules define conditions for a valid git event). However, all rules should be validated, in order to collect a single result to report which rules failed
+- A Scope is deemed to match if all of its scope conditions that are set to `INCLUDE` match, and no scope condition that is set to `EXCLUDE` matches. If no scope conditions match, by default, exclude ruleset.
+
+- The entire pipeline will fail if a single rule mismatches (rules define conditions for a valid git event). All rules from matched scopes should be evaluated, even after first failing rule is found, in order to collect a single result to report which rules failed
+
+- Multiple Scoped Rulesets can be used simultaenously.

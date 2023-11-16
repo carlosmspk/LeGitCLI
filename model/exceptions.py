@@ -20,7 +20,7 @@ class LeGitRulesMissingYamlFieldError(Exception):
 
 
 class RedefinedEntityTypeBindingError(Exception):
-    """Annotated two different rule or scope condition dataclasses with the same YAML type name"""
+    """Annotated two different entities to bind to the same target"""
 
     def __init__(
         self,
@@ -30,7 +30,7 @@ class RedefinedEntityTypeBindingError(Exception):
         attempted_to_define_type: type,
     ) -> None:
         super().__init__(
-            f"Attempted to redefine YAML {entity} type '{redefined_type}' on class '{attempted_to_define_type.__name__}' but this type was already assigned to class '{previously_defined_type.__name__}'"
+            f"Attempted to redefine {entity}'s bind target '{redefined_type}' on class '{attempted_to_define_type.__name__}' but this target was already assigned to class '{previously_defined_type.__name__}'"
         )
 
 

@@ -1,8 +1,12 @@
+from flows import Flows
 
 
 def main():
-    print('LeGit')
+    # TODO: Pick different flows depending on CLI verb (e.g. legit validate vs
+    # legit config vs legit help)
+    flow = Flows.VALIDATE
+    flow()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

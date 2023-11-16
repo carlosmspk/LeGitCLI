@@ -11,7 +11,7 @@ class Rule:
 
 
 @rule_binds_to_type("CommitMessageSize")
-@dataclass(frozen=True)
+@dataclass
 class CommitMessageSizeRule(Rule):
     """Rule for limiting commit message's size. Maximum size is inclusive."""
 
