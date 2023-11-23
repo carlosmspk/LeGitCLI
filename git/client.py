@@ -11,15 +11,39 @@ class GitReadonlyClient:
     def get_current_branch(self) -> str:
         return run_command("git rev-parse --abbrev-ref HEAD").strip()
 
-    def get_author(self) -> tuple[str, str]:
+    def get_author(self) -> tuple[str | None, str | None]:
         """
         Returns the configured user/author. Result is returned as tuple of name
         and email, respectively
         """
         return (
-            run_command("git config user.name").strip(),
-            run_command("git config user.email").strip(),
+            self.get_config("user.name"),
+            self.get_config("user.email"),
         )
+
+    def get_dot_git_path(self) -> str:
+        """
+        Returns the relative path to the `.git` directory.
+        """
+
+        return run_command("git rev-parse --git-dir").strip()
+
+    def get_config(self, config_key: str) -> str | None:
+        """
+        Retrieves a Git configuration value based on the provided configuration
+        key, or `None`, if the given `config_key` does not exist.
+        """
+        return run_command(f"git config {config_key}", False).strip() or None
+
+    def get_hooks_path(self) -> str:
+        """
+        Returns the path to the directory where Git hooks are stored, either
+        from the Git configuration or the default location.
+        """
+        hooks_dir = self.get_config("core.hooksPath")
+        if hooks_dir is None:
+            hooks_dir = os.path.join(self.get_dot_git_path(), "hooks")
+        return hooks_dir
 
 
 class GitClient(GitReadonlyClient):
