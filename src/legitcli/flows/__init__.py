@@ -2,14 +2,14 @@ from enum import Enum
 from typing import Callable, Set
 import legitcli.flows.validate as validate
 import legitcli.flows.help as help
-import legitcli.flows.setup as setup
+import legitcli.flows.init as init
 import legitcli.flows.version as version
 
 
 class Flows(Enum):
     VALIDATE = validate.run_flow
     HELP = help.run_flow
-    SETUP = setup.run_flow
+    INIT = init.run_flow
     VERSION = version.run_flow
 
     @staticmethod
