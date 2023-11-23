@@ -9,7 +9,10 @@ authors = [
     "Rhaelzo",
     "andreomlopes <andreomlopes@gmail.com>",
 ]
-packages = [{include = "legitcli", from = "src"}]
+packages = [
+    { include = "legitcli", from = "src" },
+    { include = "testutils", from = "tests" },
+]
 license = "MIT"
 readme = "README.md"
 
