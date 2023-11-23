@@ -17,3 +17,15 @@ class CommitMessageSizeRule(Rule):
 
     max_size: int
     """Maximum message size (inclusive)"""
+
+
+@rule_binds_to_type("CommitMessageText")
+@dataclass
+class CommitMessageTextRule(Rule):
+    """Rule for asserting that Commit Message complies with given regex."""
+
+    message_regex: str
+    """Regex used for matching commit message. If regex matches, commit is allowed to proceed"""
+
+    ignore_newlines: bool = False
+    """Whether to consider newlines in the regex or not. If False, message is evaluated as a whole and regex should account for newlines. If True, any consecutive newlines will be replaced with a single space"""
