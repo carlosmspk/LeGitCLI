@@ -1,8 +1,11 @@
 from typing import Type
-from legitcli.model.rules import CommitMessageSizeRule, Rule
+from legitcli.model.rules import CommitMessageSizeRule, CommitMessageTextRule, Rule
+from legitcli.utils.string import replace_params
 from legitcli.validator.generic import CommitRuleValidator, CommitRuleValidatorResult
 from legitcli.model.exceptions import RedefinedEntityTypeBindingError
 from legitcli.model.bindings import rule_validator_bindings_map
+import legitcli.model.constants as constants
+import re as regex
 
 
 def validates_rule(rule_type: Type[Rule]):
@@ -36,6 +39,25 @@ class CommitMessageSizeValidator(CommitRuleValidator[CommitMessageSizeRule]):
         if commit_message_size > self._rule.max_size:
             result.set_failed(
                 f"Expected a maximum commit message size of {self._rule.max_size}, but commit message is {commit_message_size} characters long"
+            )
+
+        return result
+
+
+@validates_rule(CommitMessageTextRule)
+class CommitMessageTextValidator(CommitRuleValidator[CommitMessageTextRule]):
+    def validate_commit(self) -> CommitRuleValidatorResult:
+        result = CommitRuleValidatorResult()
+        commit_message = self._commit_message_file.get()
+        if self._rule.ignore_newlines:
+            commit_message = regex.sub(r"[\r\n]+", " ", commit_message)
+        pattern = regex.compile(
+            replace_params(self._rule.message_regex, constants.parameter_value_map)
+        )
+
+        if not regex.match(pattern, commit_message):
+            result.set_failed(
+                f"Expected message{' with ignored newlines' if self._rule.ignore_newlines else '' } '{commit_message}' to match regex '{self._rule.message_regex}'."
             )
 
         return result
