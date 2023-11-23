@@ -1,4 +1,4 @@
-from __future__ import annotations
+from typing import Tuple, Union
 import os
 
 
@@ -27,7 +27,7 @@ def run_command(command: str, abort_on_error: bool = True) -> int:
     return exit_code
 
 
-def get_valid_command_from(commands: str | tuple[str]) -> str | None:
+def get_valid_command_from(commands: Union[str, Tuple[str]]) -> Union[str, None]:
     """
     Checks if a command is valid and returns the first valid command from a
     given list of commands.
