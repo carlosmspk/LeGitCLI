@@ -1,6 +1,8 @@
 from dataclasses import fields
+import re
 from typing import Any, List
 from legitcli.model.exceptions import (
+    LeGitRulesMissingYamlFieldError,
     UnknownLegitEntityTypeError,
 )
 from legitcli.model.rules import Rule
@@ -31,13 +33,25 @@ class ConcreteRuleParametersConverter(BaseConverter[dict, Rule]):
             for field in fields(self.RuleDataclass)
         }
 
-        self._assert_fields(required_field_names=set(field_names.values()))
-
         field_values = {
             param_python_name: self.object_to_convert[param_yaml_name]
             for param_python_name, param_yaml_name in field_names.items()
+            if self.object_to_convert.get(param_yaml_name, None) is not None
         }
-        return self.RuleDataclass(**field_values)
+        try:
+            return self.RuleDataclass(**field_values)
+        except TypeError as e:
+            try:
+                pattern = r"required positional argument: \'(\w+)\'"
+                field_name = re.findall(pattern, str(e))[0]
+                if field_name:
+                    self._assert_fields(
+                        required_field_names={_snake_to_pascal(field_name)}
+                    )
+            except LeGitRulesMissingYamlFieldError as field_error:
+                raise field_error
+            except Exception:
+                raise e
 
 
 class ConcreteScopeConditionParametersConverter(BaseConverter[dict, ScopeCondition]):

@@ -3,7 +3,7 @@ from legitcli.git.client import GitReadonlyClient
 from legitcli.model.config import Config
 from legitcli.model.ruleset import ScopedRuleset
 from legitcli.model.validator_results import CommitScopedRulesetValidatorResult
-from legitcli.utils import LazyFileReader
+from legitcli.utils.lazy import LazyFileReader
 from legitcli.validator.ruleset import CommitScopedRulesetValidator
 
 

@@ -8,7 +8,7 @@ from legitcli.model.validator_results import (
     FailedRule,
     CommitScopedRulesetValidatorResult,
 )
-from legitcli.utils import LazyFileReader
+from legitcli.utils.lazy import LazyFileReader
 from legitcli.validator.generic import CommitRuleValidator, CommitScopeConditionMatcher
 from legitcli.model.bindings import (
     scope_matcher_bindings_map,

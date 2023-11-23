@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 from typing import List
 from legitcli.git.client import GitReadonlyClient
 from legitcli.parsing import parse_legit_file
-from legitcli.utils import LazyFileReader
+from legitcli.utils.lazy import LazyFileReader
 from legitcli.validator.commit import CommitValidator
 from legitcli.model.globals import Globals
 

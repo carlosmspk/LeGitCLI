@@ -1,7 +1,7 @@
 from typing import Generic, TypeVar, Union
 from legitcli.git.client import GitReadonlyClient
 from legitcli.model.scope_conditions import ScopeConditionAction
-from legitcli.utils import LazyFileReader
+from legitcli.utils.lazy import LazyFileReader
 from abc import ABC, abstractmethod
 
 T = TypeVar("T")
