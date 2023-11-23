@@ -9,8 +9,17 @@ class GitReadonlyClient:
     directory, but does not change the repository's state
     """
 
-    def get_current_branch(self) -> str:
-        return run_command("git rev-parse --abbrev-ref HEAD").strip()
+    def get_current_branch(self) -> str | None:
+        try:
+            return run_command("git rev-parse --abbrev-ref HEAD").strip()
+        except Exception:
+            ...
+        try:
+            return run_command("git branch --show-current").strip()
+        except Exception:
+            ...
+
+        return None
 
     def get_author(self) -> Tuple[Union[str, None], Union[str, None]]:
         """

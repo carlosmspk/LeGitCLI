@@ -37,6 +37,8 @@ class BranchNameScopeConditionMatcher(
 ):
     def get_action(self) -> Union[ScopeConditionAction, None]:
         current_branch = self._git.get_current_branch()
+        if current_branch is None:
+            return None
         pattern = regex.compile(
             replace_params(
                 self._scope_condition.name_regex, constants.parameter_value_map
